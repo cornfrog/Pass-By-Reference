@@ -5,7 +5,7 @@
 
 void passInt(int** x);
 void initializeArray(int** array);
-void passArray(int** array);
+void modifyArray(int** array);
 void printArray(int** array);
 
 int main(){
@@ -52,8 +52,11 @@ int main(){
 	
 	//printing info on int* testArray
 	printArray(&testArray);
-	//TODO: add printing memory locations of array elements
-	//TODO: add modifyArray function
+	printf("\n");
+	modifyArray(&testArray);
+	printf("\n");
+	printArray(&testArray);
+	printf("\n");
 	//freeing testArray
 	free(testArray);
 	testArray = NULL;
@@ -79,13 +82,20 @@ void initializeArray(int** array){
 	}
 }
 	
-void passArray(int** array){
-	
+void modifyArray(int** array){
+	printf("Modifying Array\n");
+	for(int i = 0; i < ARR_SIZE; i++){
+		(*array)[i] *= 2;
+	}
+	printf("Done Modifying Array\n");
 }
 
 void printArray(int** array){
 	printf("Printing Array:\n");
+	printf("&array: %p\n", &array);
+	printf("&(*array): %p\n", &(*array));
+	printf("&(**array): %p\n", &(**array));
 	for(int i = 0; i < ARR_SIZE; i++){
-		printf("array[%d]: %d\n", i, (*array)[i]);
+		printf("array[%d]: %d - %p\n", i, (*array)[i], &(*array)[i]);
 	}
 }
